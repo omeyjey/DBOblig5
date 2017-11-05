@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17)
 # Database: DBOblig5
-# Generation Time: 2017-11-05 14:33:49 +0000
+# Generation Time: 2017-11-05 16:19:57 +0000
 # ************************************************************
 
 
@@ -59,6 +59,16 @@ CREATE TABLE `Logs` (
 
 
 
+# Dump of table Season
+# ------------------------------------------------------------
+
+CREATE TABLE `Season` (
+  `year` year(4) NOT NULL,
+  PRIMARY KEY (`year`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 # Dump of table Skier
 # ------------------------------------------------------------
 
@@ -68,6 +78,18 @@ CREATE TABLE `Skier` (
   `lastname` varchar(256) NOT NULL,
   `birthyear` date NOT NULL,
   PRIMARY KEY (`userName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table Totaldistance
+# ------------------------------------------------------------
+
+CREATE TABLE `Totaldistance` (
+  `skier` varchar(256) NOT NULL DEFAULT '',
+  `season` year(4) NOT NULL,
+  `distance` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`skier`,`season`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

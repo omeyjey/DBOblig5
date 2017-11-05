@@ -1,5 +1,16 @@
 <?php
 
-$exe = simplexml_load_file("SkierLogs.xml");
+include_once("classes.php");
 
-$pdo = new PDO('mysql:host=127.0.0.1;dbname=DBOblig5', 'root', '');
+$cities = []; $clubs = []; $logs = []; $skiers = [];
+
+// Connect to database
+$pdo = new PDO('mysql:host=127.0.0.1;dbname=DBOblig5;charset=utf8mb4', 'root', '');
+
+
+foreach ($xml_city as $city) {
+  array_push($cities, new City($city));
+}
+
+echo '<pre>';
+print_r($cities);
