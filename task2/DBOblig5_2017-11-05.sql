@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17)
 # Database: DBOblig5
-# Generation Time: 2017-11-05 16:19:57 +0000
+# Generation Time: 2017-11-05 19:41:17 +0000
 # ************************************************************
 
 
@@ -49,7 +49,7 @@ CREATE TABLE `Clubs` (
 CREATE TABLE `Logs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `season` year(4) NOT NULL,
-  `club` varchar(256) NOT NULL DEFAULT '',
+  `club` varchar(256) DEFAULT '',
   `skier` varchar(256) NOT NULL DEFAULT '',
   `date` date NOT NULL,
   `area` varchar(256) NOT NULL DEFAULT '',
@@ -73,11 +73,11 @@ CREATE TABLE `Season` (
 # ------------------------------------------------------------
 
 CREATE TABLE `Skier` (
-  `userName` varchar(11) NOT NULL DEFAULT '',
+  `username` varchar(11) NOT NULL DEFAULT '',
   `firstname` varchar(256) NOT NULL DEFAULT '',
   `lastname` varchar(256) NOT NULL,
-  `birthyear` date NOT NULL,
-  PRIMARY KEY (`userName`)
+  `birthyear` year(4) NOT NULL,
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

@@ -16,8 +16,14 @@ class Club {
     }
 
   private function save() {
-    echo '<pre>';
-    print_r($this);
+    $dbi = Database::instance();
+
+    $stm = $dbi->prepare('INSERT INTO Clubs (id, name, city) VALUES (:id, :name, :city)');
+    $stm->execute([
+      ':id' => $this->id,
+      ':name' => $this->name,
+      ':city' => $this->city
+      ]);
   }
 }
 
@@ -33,8 +39,13 @@ class City {
   }
 
   private function save() {
-    echo '<pre>';
-    print_r($this);
+    $dbi = Database::instance();
+
+    $stm = $dbi->prepare('INSERT INTO Cities (cityname, county) VALUES (:cityname, :county)');
+    $stm->execute([
+      ':cityname' => $this->cityname,
+      ':county' => $this->county
+      ]);
   }
 }
 
@@ -58,8 +69,17 @@ class Log {
     }
 
   private function save() {
-    echo '<pre>';
-    print_r($this);
+    $dbi = Database::instance();
+
+    $stm = $dbi->prepare('INSERT INTO Logs (season, club, skier, date, area, distance) VALUES (:season, :club, :skier, :date, :area, :distance)');
+    $stm->execute([
+      ':season' => $this->season,
+      ':club' => $this->club,
+      ':skier' => $this->skier,
+      ':date' => $this->date,
+      ':area' => $this->area,
+      ':distance' => $this->distance
+      ]);
   }
 }
 
@@ -79,8 +99,15 @@ class Skier {
     }
 
   private function save() {
-    echo '<pre>';
-    print_r($this);
+    $dbi = Database::instance();
+
+    $stm = $dbi->prepare('INSERT INTO Skier (username, firstname, lastname, birthyear) VALUES (:username, :firstname, :lastname, :birthyear)');
+    $stm->execute([
+      ':username' => $this->username,
+      ':firstname' => $this->firstname,
+      ':lastname' => $this->lastname,
+      ':birthyear' => $this->birthyear
+      ]);
   }
 }
 
@@ -94,7 +121,34 @@ class Season {
   }
 
   private function save() {
-    echo '<pre>';
-    print_r($this);
+    $dbi = Database::instance();
+
+    $stm = $dbi->prepare('INSERT INTO Season (year) VALUES (?)');
+    $stm->execute([$this->year]);
+  }
+}
+
+class TotalDistance {
+  public $skier;
+  public $season;
+  public $distance;
+
+  public function parse($skier, $season, $distance) {
+    $this->skier = $skier;
+    $this->season = $season;
+    $this->distance = $distance;
+
+    $this->save();
+  }
+
+  private function save() {
+    $dbi = Database::instance();
+
+    $stm = $dbi->prepare('INSERT INTO Totaldistance (skier, season, distance) VALUES (?, ?, ?)');
+    $stm->execute([
+      $this->skier,
+      $this->season,
+      $this->distance
+      ]);
   }
 }

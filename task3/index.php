@@ -2,7 +2,6 @@
 
 include_once("classes.php");
 
-
 // Load xml file
 $xml = simplexml_load_file("SkierLogs.xml");
 
@@ -71,8 +70,32 @@ function parseLogs($xml) {
   }
 }
 
-// parseLogs($xml);
-// parseCities($xml);
-// parseSkiers($xml);
-// parseSeasons($xml);
-// parseClubs($xml);
+function parseTotalDistance($xml) {
+  $data = $xml->xpath('//SkierLogs/Season');
+
+  $holder = new TotalDistance();
+
+  foreach ($data as $Season) {
+    $season = $Season->attributes()->fallYear;
+    foreach ($Season as $Skiers) {
+      foreach ($Skiers as $Skier) {
+        $skier = $Skier->attributes()->userName;
+        $total = 0;
+        foreach ($Skier as $Log) {
+          foreach ($Log as $Entry) {
+            $total += $Entry->Distance;
+          }
+        }
+        $holder->parse($skier, $season, $total);
+      }
+    }
+  }
+}
+
+// Calling all functions
+parseLogs($xml);
+parseCities($xml);
+parseSkiers($xml);
+parseSeasons($xml);
+parseClubs($xml);
+parseTotalDistance($xml);
