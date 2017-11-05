@@ -1,5 +1,7 @@
 <?php
 
+include_once("DBHandler.php");
+
 class Club {
   public $id;
   public $name;

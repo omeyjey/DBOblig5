@@ -1,12 +1,10 @@
 <?php
 
 include_once("classes.php");
-// Connect to database
-$pdo = new PDO('mysql:host=127.0.0.1;dbname=DBOblig5;charset=utf8mb4', 'root', '');
+
 
 // Load xml file
 $xml = simplexml_load_file("SkierLogs.xml");
-
 
 function parseCities($xml) {
   $xml_city = $xml->xpath('//SkierLogs/Clubs/Club');
